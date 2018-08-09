@@ -6,9 +6,9 @@ How to use WorkManager in Android. This is new way to run background tasks in an
 
 1) How to perform OneTimeWorkRequest.
 2) How to perform PeriodicWorkRequest.
-3) How to perform task parallel.
+3) How to perform parallel task.
 4) How to perform task one after other.
-5) How to cancel run task.
+5) How to cancel runing task.
 6) How to get work status weather work completed or Not.
 7) How to use Constraints for conditions.
 8) How to send Data from Activity to your Own Worker Class and Also How to send that data back to the Activity from your Own Worker Class.
