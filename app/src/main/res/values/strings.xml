@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WorkManager</string>
+    <string name="onetimework">OneTimeWork</string>
+    <string name="periodicwork">PeriodicWork</string>
+    <string name="chainable_work">Chainable Work</string>
+    <string name="parallelwork">ParallelWork</string>
+    <string name="cancel_periodicwork">Cancel PeriodicWork</string>
+    <string name="work_with_constraints">Work with Constraints</string>
+    <string name="work_with_data">Work With Data</string>
+    <string name="out_coming_from_myworkwithdata_class">Out Coming From MyWorkWithData Class</string>
+</resources>

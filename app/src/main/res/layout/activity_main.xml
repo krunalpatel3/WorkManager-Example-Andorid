@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <Button
+        android:id="@+id/OneTimeWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="41dp"
+        android:text="@string/onetimework"
+        app:layout_constraintEnd_toStartOf="@+id/PeriodicWork"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/PeriodicWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="41dp"
+        android:text="@string/periodicwork"
+        app:layout_constraintBottom_toTopOf="@+id/parallelwork"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/OneTimeWork"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ChainableWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/chainable_work"
+        app:layout_constraintBaseline_toBaselineOf="@+id/parallelwork"
+        app:layout_constraintEnd_toStartOf="@+id/parallelwork"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/parallelwork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="@string/parallelwork"
+        app:layout_constraintBottom_toTopOf="@+id/CancelPeriodicWork"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ChainableWork"
+        app:layout_constraintTop_toBottomOf="@+id/PeriodicWork" />
+
+    <Button
+        android:id="@+id/CancelPeriodicWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:text="@string/cancel_periodicwork"
+        app:layout_constraintBottom_toTopOf="@+id/workwithconstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parallelwork" />
+
+    <Button
+        android:id="@+id/workwithconstraints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/work_with_constraints"
+        app:layout_constraintBottom_toTopOf="@+id/WorkWithData"
+        app:layout_constraintStart_toStartOf="@+id/CancelPeriodicWork"
+        app:layout_constraintTop_toBottomOf="@+id/CancelPeriodicWork" />
+
+    <Button
+        android:id="@+id/WorkWithData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:text="@string/work_with_data"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/workwithconstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginStart="23dp"
+        android:text="@string/out_coming_from_myworkwithdata_class"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WorkWithData" />
+</android.support.constraint.ConstraintLayout>
