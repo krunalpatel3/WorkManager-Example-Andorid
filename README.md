@@ -2,7 +2,7 @@
 
 How to use WorkManager in Android. This is new way to run background tasks in android and also the best way.
 
-It show's you:-
+- It show's you:-
 
 1) How to perform OneTimeWorkRequest.
 2) How to perform PeriodicWorkRequest.
@@ -13,6 +13,10 @@ It show's you:-
 7) How to use Constraints for conditions.
 8) How to send Data from Activity to your Own Worker Class and Also How to send that data back to the Activity from your Own Worker Class.
 9) How send notification using WorkManager.
+
+### Note:-
+
+To See Output you have to see logs in Android Studio.
 
 ## Screenshots:-
 
