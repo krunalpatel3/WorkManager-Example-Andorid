@@ -8,13 +8,19 @@ import android.support.v4.app.NotificationCompat;
 
 import androidx.work.Data;
 import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 public class MyWorkWithData extends Worker {
 
     private static final String TAB = MyWorkWithData.class.getSimpleName();
-    public static final String EXTRA_TITLE = "title";
-    public static final String EXTRA_TEXT = "text";
-    public static final String EXTRA_OUTPUT_MESSAGE = "output_message";
+    static final String EXTRA_TITLE = "title";
+    static final String EXTRA_TEXT = "text";
+    static final String EXTRA_OUTPUT_MESSAGE = "output_message";
+
+
+    public MyWorkWithData(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+        super(context, workerParams);
+    }
 
     @NonNull
     @Override
@@ -31,9 +37,7 @@ public class MyWorkWithData extends Worker {
                 .build();
 
         // Sending Data to MainActivity.
-        setOutputData(output);
-
-        return Result.SUCCESS;
+        return Result.success(output);
     }
 
     private void sendNotification(String title, String message) {

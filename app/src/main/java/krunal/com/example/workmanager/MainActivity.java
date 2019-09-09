@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -17,12 +19,15 @@ import androidx.work.Data;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import androidx.work.WorkStatus;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mOneTimeWork, mPeriodicWork, mChainableWork, mParallelWork, mCancelPeriodicWork, mWorkWithConstraints, mWorkWithData;
+    private Button mOneTimeWork, mPeriodicWork,
+            mChainableWork, mParallelWork,
+            mCancelPeriodicWork, mWorkWithConstraints, mWorkWithData;
 
     private UUID getId;
 
@@ -90,10 +95,15 @@ public class MainActivity extends AppCompatActivity {
             OneTimeWorkRequest MyWorkC = new OneTimeWorkRequest.Builder(MyWorkC.class)
                     .build();
 
+            List<OneTimeWorkRequest> beginWith_A_and_B = new ArrayList<>();
+            beginWith_A_and_B.add(MyWorkA);
+            beginWith_A_and_B.add(MyWorkB);
+
             WorkManager.getInstance()
-                    .beginWith(MyWorkA, MyWorkB)
+                    .beginWith(beginWith_A_and_B)
                     .then(MyWorkC)
                     .enqueue();
+
 
 
         });
@@ -119,19 +129,26 @@ public class MainActivity extends AppCompatActivity {
 
             WorkManager.getInstance().enqueue(oneTimeWorkRequest);
 
-            WorkManager.getInstance().getStatusById(oneTimeWorkRequest.getId()).observe(this,
-                    workStatus -> {
-                        if (workStatus != null) {
-                            Toast.makeText(this, "oneTimeWorkRequest: " +
-                                    String.valueOf(workStatus.getState().name()), Toast.LENGTH_LONG).show();
-                        }
+            WorkManager.getInstance().getWorkInfoByIdLiveData(oneTimeWorkRequest.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
 
-                        if (workStatus != null && workStatus.getState().isFinished()) {
-                            // ... do something with the result ...
-                            Toast.makeText(this, "Work Finished", Toast.LENGTH_LONG).show();
-                        }
+                            if (workInfo != null) {
+                                Toast.makeText(MainActivity.this, "oneTimeWorkRequest: " +
+                                        String.valueOf(workInfo.getState().name()), Toast.LENGTH_LONG)
+                                        .show();
+                            }
 
+                            if (workInfo != null && workInfo.getState().isFinished()) {
+                                // ... do something with the result ...
+                                Toast.makeText(MainActivity.this, "Work Finished",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                        }
                     });
+
 
         });
 
@@ -144,21 +161,26 @@ public class MainActivity extends AppCompatActivity {
                     .putString(MyWorkWithData.EXTRA_TEXT, "This is Message.")
                     .build();
 
-            OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(MyWorkWithData.class)
-                    .setInputData(data)
-                    .build();
+            OneTimeWorkRequest oneTimeWorkRequest =
+                    new OneTimeWorkRequest.Builder(MyWorkWithData.class)
+                            .setInputData(data)
+                            .build();
 
             WorkManager.getInstance().enqueue(oneTimeWorkRequest);
 
-            WorkManager.getInstance().getStatusById(oneTimeWorkRequest.getId()).observe(this, new Observer<WorkStatus>() {
-                @Override
-                public void onChanged(@Nullable WorkStatus workStatus) {
-                    if (workStatus != null && workStatus.getState().isFinished()) {
-                        String message = workStatus.getOutputData().getString(MyWorkWithData.EXTRA_OUTPUT_MESSAGE);
-                        mTextView.setText(message);
-                    }
-                }
-            });
+
+            WorkManager.getInstance().getWorkInfoByIdLiveData(oneTimeWorkRequest.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+
+                            if (workInfo != null && workInfo.getState().isFinished()) {
+                                String message = workInfo.getOutputData().getString(MyWorkWithData.EXTRA_OUTPUT_MESSAGE);
+                                mTextView.setText(message);
+                            }
+
+                        }
+                    });
 
         });
 
